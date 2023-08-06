@@ -1,14 +1,27 @@
 #include <stdio.h>
 
+int fibonacci(int n) {
+	if (n <= 0) {
+			return 0;
+	}
+	else if (n == 1 || n == 2) {
+			return 1;
+	}
+	else {
+			int fib1 = 1, fib2 = 1, fib = 0;
+			for (int i = 3; i <= n; i++) {
+					fib = fib1 + fib2;
+					fib1 = fib2;
+					fib2 = fib;
+			}
+			return fib;
+	}
+}
+	
 int main() {
-	int segundos, horas, minutos;
-	printf("Digite um numero em segundos: ");
-	scanf("%d", &segundos);
-
-	horas = segundos / 3600;
-	segundos = segundos % 3600;
-	minutos = segundos / 60;
-	segundos = segundos % 60;
-
-	printf("tempo no formato hh:mm:ss = %02d:%02d:%02d\n", horas, minutos, segundos);
+	int n;
+	printf("Digite um numero: ");
+	scanf("%d", &n);
+	printf(" O %d numero da seuquencia de fibonacci é: %d\n", n, fibonacci(n));
+	return 0;
 }
