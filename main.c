@@ -1,16 +1,25 @@
+// INTERCALAR VETORES                                       
 #include <stdio.h>
 
+void intercalar(int* vetor1, int* vetor2, int* vetorIntercalado, int n) {
+    for (int i = 0; i < n; i++) {
+        vetorIntercalado[2*i] = vetor1[i];
+        vetorIntercalado[2*i + 1] = vetor2[i];
+    }
+}
+
 int main() {
-	int n, reverso = 0, temp, original;
+    int vetor1[4] = {10, 1, 45, 7};
+    int vetor2[4] = {12, 98, 90, 11};
+    int vetorIntercalado[8];
 
-	printf("Digite um numero inteiro: ");
-	scanf("%d", &n);
+    intercalar(vetor1, vetor2, vetorIntercalado, 4);
 
-	original = n;
+    printf("Vetor intercalado: ");
+    for (int i = 0; i < 8; i++) {
+        printf("%d ", vetorIntercalado[i]);
+    }
+    printf("\n");
+    return 0;
+}
 
-	while (n != 0) {
-		temp = n % 10;
-		reverso = reverso * 10 + temp;
-		n /= 10;
-	}
-} 
