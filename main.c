@@ -6,8 +6,9 @@ int main() {
 	scanf("%d", &segundos);
 
 	horas = segundos / 3600;
-	minutos = (segundos % 3600) / 60;
-	segundos = (segundos % 3600) % 60;
+	segundos = segundos % 3600;
+	minutos = segundos / 60;
+	segundos = segundos % 60;
 
-	printf("%d:%d:%d\n", horas, minutos, segundos);
+	printf("tempo no formato hh:mm:ss = %02d:%02d:%02d\n", horas, minutos, segundos);
 }
