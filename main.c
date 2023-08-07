@@ -13,7 +13,7 @@ int main() {
     int vetor2[4] = {12, 98, 90, 11};
     int vetorIntercalado[8];
 
-    intercalar(vetor1, vetor2, vetorIntercalado, 4);
+    intercalar(vetor1, vetor2, vetorIntercalado, 3);
 
     printf("Vetor intercalado: ");
     for (int i = 0; i < 8; i++) {
