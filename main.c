@@ -1,25 +1,29 @@
-//Intercalar vetores
-
 #include <stdio.h>
 
-void intercalar(int vetor1[], int vetor2[], int vetorIntercalado[], int n) {
-    for (int i = 0; i < n; i++) {
-        vetorIntercalado[2*i] = vetor1[i];
-        vetorIntercalado[2*i + 1] = vetor2[i];
-    }
-}
-
 int main() {
-    int vetor1[4] = {10, 1, 5, 7};
-    int vetor2[4] = {12, 98, 90, 15};
-    int vetorIntercalado[8];
+    int val, quad;
 
-    intercalar(vetor1, vetor2, vetorIntercalado, 4 );
+    // Começa assumindo que a sequência é uma série de valor-quadrado
+    int valor_quadrado = 1;
 
-    printf("Vetor intercalado: ");
-    for (int i = 0; i < 8; i++) {
-        printf("%d ", vetorIntercalado[i]);
+    printf("Digite uma sequencia de numeros (termina com 0): ");
+    
+    // Leia o primeiro valor
+    scanf("%d", &val);
+    while(val != 0) {
+        // Leia o próximo valor (que deve ser o quadrado do anterior)
+        scanf("%d", &quad);
+        
+        // Se o quadrado não é o quadrado do valor, então a sequência não é uma série de valor-quadrado
+        if(quad != val * val) {
+            valor_quadrado = 0;
+        }
+
+        // Leia o próximo valor
+        scanf("%d", &val);
     }
-    printf("\n");
+    
+    printf("%d\n", valor_quadrado);
+    
     return 0;
 }
