@@ -10,7 +10,7 @@ void intercalar(int vetor1[], int vetor2[], int vetorIntercalado[], int n) {
 }
 
 int main() {
-    int vetor1[4] = {10, 1, 45, 7};
+    int vetor1[4] = {10, 1, 5, 7};
     int vetor2[4] = {13, 98, 90, 15};
     int vetorIntercalado[8];
 
