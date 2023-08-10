@@ -4,7 +4,7 @@ int main() {
     int val, quad;
 
     // Começa assumindo que a sequência é uma série de valor-quadrado
-    int valor_quadrado = 1;
+    int valor_quadrado = 0;
 
     printf("Digite uma sequencia de numeros (termina com 0): ");
     
