@@ -17,7 +17,7 @@ int pontoMaisProximo(float* x, float* y, int n, float px, float py) {
 }
 
 int main() {
-    float x[6] = {1.0, 2.0, 3.0, 4.0, 5.0};
+    float x[5] = {1.0, 2.0, 3.0, 4.0, 5.0};
     float y[5] = {1.0, 2.0, 3.0, 4.0, 5.0};
     float px = 2.5, py = 2.5;
 
