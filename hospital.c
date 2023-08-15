@@ -24,7 +24,7 @@ void consultar(struct pacientes p[], int num) {
     int encontrado = 0;
 
     printf("Digite o nome do paciente que deseja consultar: ");
-    scanf("%s", nome);
+    scanf("%s\n", nome);
 
     for (int i = 0; i < num; i++) {
         if (strcmp(p[i].nome, nome) == 0) {
@@ -48,7 +48,7 @@ void consultar(struct pacientes p[], int num) {
     }
 
     if (!encontrado) {
-        printf("Paciente não encontrado.\n");
+        printf("\033[31mPaciente não encontrado.\033[0m\n\n");
     }
 }
 
