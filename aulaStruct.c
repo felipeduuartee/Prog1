@@ -75,7 +75,7 @@ void consultar(struct pacientes p) {
 struct pacientes cadastro() {
 
 	int n;
-	int i = 1;
+	int i = 0;
 
 	struct pacientes cadastro;
 	printf("Digite o nome do paciente: ");
