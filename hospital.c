@@ -24,7 +24,7 @@ void consultar(struct pacientes p[], int num) {
     int encontrado = 0;
 
     printf("Digite o nome do paciente que deseja consultar: ");
-    scanf("%s\n", nome);
+    scanf("%s", nome);
 
     for (int i = 0; i < num; i++) {
         if (strcmp(p[i].nome, nome) == 0) {
@@ -58,9 +58,9 @@ struct pacientes cadastro() {
 
     printf("Digite o nome do paciente: ");
     scanf("%s", cadastro.nome);
-    printf("Digite a idade do paciente: ");
+    printf("Digite a idade de %s *APENAS NUMEROS* : ", cadastro.nome);
     scanf("%d", &cadastro.idade);
-    printf("Digite o peso do paciente: ");
+    printf("Digite o peso de %s em KG: ",cadastro.nome);
     scanf("%f", &cadastro.peso);
 
     printf("Quantos medicamentos %s está tomando? ", cadastro.nome);
@@ -91,7 +91,7 @@ int main() {
     escolha = 0;
 
     while (escolha != 3) {
-        printf("Voce quer cadastrar ou consultar informações de um paciente?\n");
+        printf("\n O que você deseja fazer? \n");
         printf("Digite 1 para cadastrar\n");
         printf("Digite 2 para consultar informações\n");
         printf("Digite 3 para sair\n");
