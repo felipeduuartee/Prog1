@@ -32,7 +32,7 @@ void consultar(struct pacientes p[], int num) {
             printf("Nome: %s\n", p[i].nome);
             printf("Idade: %d anos\n", p[i].idade);
             printf("Peso: %.2f kg\n", p[i].peso);
-            for(int j = 0; j < i; j++) {
+            for(int j = 0; j <= i; j++) {
                 if(strlen(p[i].remedios[j].nome) != 0) {
                     printf("Medicamento %d: %s\n", j+1, p[i].remedios[j].nome);
                     printf("Data de Início: %d/%d/%d\n",
