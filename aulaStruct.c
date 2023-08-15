@@ -51,6 +51,25 @@ struct pacientes {
 
 
 	return paciente;} */
+void consultar(struct pacientes p) {
+    int i;
+
+    printf("\n--- Informações do Paciente ---\n");
+    printf("Nome: %s\n", p.nome);
+    printf("Idade: %d anos\n", p.idade);
+    printf("Peso: %.2f kg\n", p.peso);
+
+    for(i = 0; i < 3; i++) {
+        if(strlen(p.remedios[i].nome) != 0) {
+            printf("Medicamento %d: %s\n", i+1, p.remedios[i].nome);
+            printf("Data de Início: %d/%d/%d\n",
+                   p.remedios[i].inicio.dia,
+                   p.remedios[i].inicio.mes,
+                   p.remedios[i].inicio.ano);
+        }
+    }
+    printf("\n");
+}
 
 
 struct pacientes cadastro() {
@@ -104,11 +123,10 @@ int main() {
 
 
 
-	if (escolha == 1)
-	 cadastroPaciente = cadastro();
-	if (escolha == 2) {
-    consultar(cadastroPaciente);
-}
+		if (escolha == 1)
+	 		cadastroPaciente = cadastro();
+		if (escolha == 2) 
+    		consultar(cadastroPaciente);
 
 
 	}
