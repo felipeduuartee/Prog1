@@ -95,7 +95,7 @@ int main() {
         printf("Digite 1 para cadastrar\n");
         printf("Digite 2 para consultar informações\n");
         printf("Digite 3 para sair\n");
-        printf("Digite para o que deseja fazer: \t");
+        printf("Digite para o que deseja fazer: ");
         scanf("%d", &escolha);
 
         if (escolha == 1) {
@@ -105,6 +105,14 @@ int main() {
 
         if (escolha == 2) {
             consultar(pacientes, numPacientes);
+        }
+
+        if (escolha == 3) {
+            printf("\nObrigado por usar nosso sistema!\n");
+        }
+
+        else if (escolha != 1 && escolha != 2 && escolha != 3) {
+            printf("\nOpção inválida, tente novamente.\n");
         }
     }
 
