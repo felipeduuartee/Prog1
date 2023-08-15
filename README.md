@@ -1,1 +1,1 @@
-Exercícios que eu farei no decorrer da disciplina de Programação 1 no Universidade Federal do Paraná na linguagem C
+Vou deixar aqui todos os exercicios que eu farei durante o curso deste disciplina
