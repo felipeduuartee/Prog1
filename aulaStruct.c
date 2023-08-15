@@ -90,7 +90,7 @@ struct pacientes cadastro() {
 
 	while (i != n) {
 
-	   printf("Digite nome do %d° medicamento: ",i);
+	   printf("Digite nome do %d° medicamento: ",i + 1);
 	   scanf("%s", cadastro.remedios[i].nome);
 	   printf("Digite o dia de início do medicamento: ");
 		scanf("%d", &cadastro.remedios[i].inicio.dia);
@@ -108,7 +108,8 @@ struct pacientes cadastro() {
 int main() {
 
 	int escolha;
-	struct pacientes cadastroPaciente;
+	struct pacientes pacientes[100];
+	int numPacientes = 0;
 
 	escolha = 0;
 
@@ -124,9 +125,9 @@ int main() {
 
 
 		if (escolha == 1)
-	 		cadastroPaciente = cadastro();
+	 		pacientes = cadastro();
 		if (escolha == 2) 
-    		consultar(cadastroPaciente);
+    		consultar(pacientes);
 
 
 	}
