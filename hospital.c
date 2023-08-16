@@ -60,7 +60,7 @@ struct pacientes cadastro() {
     scanf("%s", cadastro.nome);
     printf("Digite a idade de %s *APENAS NUMEROS* : ", cadastro.nome);
     scanf("%d", &cadastro.idade);
-    printf("Digite o peso de %s em KG: ",cadastro.nome);
+    printf("Digite o peso de %s *APE: ",cadastro.nome);
     scanf("%f", &cadastro.peso);
 
     printf("Quantos medicamentos %s está tomando? ", cadastro.nome);
