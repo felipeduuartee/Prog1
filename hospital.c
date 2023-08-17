@@ -70,11 +70,11 @@ struct pacientes cadastro() {
         printf("Digite nome do %d° medicamento: ", i + 1);
         scanf("%s", cadastro.remedios[i].nome);
 
-        printf("Digite o dia de início do %s: ", cadastro.remedios[i].nome);
+        printf("Digite o dia de inicio do %s: ", cadastro.remedios[i].nome);
         scanf("%d", &cadastro.remedios[i].inicio.dia);
-        printf("Digite o mês de início do %s: ", cadastro.remedios[i].nome);
+        printf("Digite o mês de inicio do %s: ", cadastro.remedios[i].nome);
         scanf("%d", &cadastro.remedios[i].inicio.mes);
-        printf("Digite o ano de início do $s: ", cadastro.remedios[i].nome);
+        printf("Digite o ano de inicio do $s: ", cadastro.remedios[i].nome);
         scanf("%d", &cadastro.remedios[i].inicio.ano);
 
         i++;
