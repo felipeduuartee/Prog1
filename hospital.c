@@ -74,7 +74,7 @@ struct pacientes cadastro() {
         scanf("%d", &cadastro.remedios[i].inicio.dia);
         printf("Digite o mês de início do %s: ", cadastro.remedios[i].nome);
         scanf("%d", &cadastro.remedios[i].inicio.mes);
-        printf("Digite o ano de início do medicamento: ");
+        printf("Digite o ano de início do $s: ", cadastro.remedios[i].nome);
         scanf("%d", &cadastro.remedios[i].inicio.ano);
 
         i++;
