@@ -16,7 +16,7 @@ struct pacientes {
     char nome[50];
     int idade;
     float peso;
-    struct medicamento remedios[3];
+    struct medicamento remedios[10];
 };
 
 void consultar(struct pacientes p[], int num) {
@@ -24,7 +24,7 @@ void consultar(struct pacientes p[], int num) {
     int encontrado = 0;
 
     printf("Digite o nome do paciente que deseja consultar: ");
-    scanf("%s", nome);
+    scanf(" %[^\n]", nome);
 
     for (int i = 0; i < num; i++) {
         if (strcmp(p[i].nome, nome) == 0) {
@@ -32,7 +32,7 @@ void consultar(struct pacientes p[], int num) {
             printf("Nome: %s\n", p[i].nome);
             printf("Idade: %d anos\n", p[i].idade);
             printf("Peso: %.2f kg\n", p[i].peso);
-            for(int j = 0; j <= i; j++) {
+            for(int j = 0; j < 10; j++) {
                 if(strlen(p[i].remedios[j].nome) != 0) {
                     printf("Medicamento %d: %s\n", j+1, p[i].remedios[j].nome);
                     printf("Data de Início: %d/%d/%d\n",
@@ -56,8 +56,10 @@ struct pacientes cadastro() {
     int n, i = 0;
     struct pacientes cadastro;
 
+    memset(&cadastro, 0, sizeof(cadastro));  // Inicializando com zeros
+
     printf("Digite o nome do paciente: ");
-    scanf("%s", cadastro.nome);
+    scanf(" %[^\n]", cadastro.nome);
     printf("Digite a idade de %s *APENAS NUMEROS* : ", cadastro.nome);
     scanf("%d", &cadastro.idade);
     printf("Digite o peso de %s *APENAS NUMEROS E PONTOS*: ",cadastro.nome);
@@ -68,7 +70,7 @@ struct pacientes cadastro() {
 
     while (i < n) {
         printf("Digite nome do %d° medicamento: ", i + 1);
-        scanf("%s", cadastro.remedios[i].nome);
+        scanf(" %[^\n]", cadastro.remedios[i].nome);
 
         printf("Digite o dia de inicio do %s *APENAS NUMEROS*: ", cadastro.remedios[i].nome);
         scanf("%d", &cadastro.remedios[i].inicio.dia);
@@ -103,15 +105,15 @@ int main() {
             numPacientes++;
         }
 
-        if (escolha == 2) {
+        else if (escolha == 2) {
             consultar(pacientes, numPacientes);
         }
 
-        if (escolha == 3) {
+        else if (escolha == 3) {
             printf("\nObrigado por usar nosso sistema!\n");
         }
 
-        else if (escolha != 1 && escolha != 2 && escolha != 3) {
+        else {
             printf("\nOpção inválida, tente novamente.\n");
         }
     }
