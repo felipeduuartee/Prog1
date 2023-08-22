@@ -17,12 +17,12 @@ int ehNulo(int num) {
     return 0;
 }
 
-// Função que calcula o delta da equação
+// Função que calcula o delta da equacao
 double calculaDelta(int a, int b, int c) {
     return (b * b) - (4 * a * c);
 }
 
-// Função para calcular as raízes da equação
+// Função para calcular as raízes da equacao
 void calculaRaizes(int a, int b, int c) {
     if (ehNulo(a)) {
         printf("O coeficiente 'a' deve ser diferente de zero.\n");
@@ -33,13 +33,15 @@ void calculaRaizes(int a, int b, int c) {
 
     if (ehNulo(delta)) {
         double x = -b / (2.0 * a);
-        printf("A raiz da equação é: x = %.2f\n", x);
+        printf("A equação tem uma raiz real: x = %.2f\n", x);
     } else if (ehPositivo(delta)) {
         double x1 = (-b + sqrt(delta)) / (2.0 * a);
         double x2 = (-b - sqrt(delta)) / (2.0 * a);
-        printf("As duas raízes da equação sao: x' = %.2f e x'' = %.2f\n", x1, x2);
+        printf("A equação tem duas raízes reais: x' = %.2f e x'' = %.2f\n", x1, x2);
     } else {
-        printf("A equação não possui raízes reais.\n");
+        double x = -b / (2.0 * a);
+        double y = sqrt(-delta) / (2.0 * a);
+        printf("A equação tem raízes complexas: x' = %.2f + %.2fi e x'' = %.2f - %.2fi\n", x, y, x, y);
     }
 }
 
@@ -53,3 +55,4 @@ int main() {
 
     return 0;
 }
+
