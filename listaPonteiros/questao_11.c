@@ -8,8 +8,8 @@ int main() {
     // Leitura dos elementos do array
     printf("Digite 5 inteiros:\n");
     for (p = vetor; p < vetor + 5; p++) {
-        scanf("%d", &vetor[p]);
-        printf("%p\n", &vetor[i]);
+        scanf("%d", p);
+        printf("%p\n", p);
     }
 
     return 0;
