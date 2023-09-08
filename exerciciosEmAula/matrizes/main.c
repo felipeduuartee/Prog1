@@ -10,27 +10,17 @@ int main() {
     preencherAleatoriamente(A);
     preencherAleatoriamente(B);
 
+    // Imprimindo as matrizes A e B
+    imprimirMatriz(A, "Matriz A");
+    imprimirMatriz(B, "Matriz B");
+
     // Somando matrizes
     somarMatrizes(A, B, Resultado);
-    printf("Resultado da Soma:\n");
-    for (int i = 0; i < MAX; i++) {
-        for (int j = 0; j < MAX; j++) {
-            printf("%.2f ", Resultado[i][j]);
-        }
-        printf("\n");
-    }
-
-    printf("\n");
+    imprimirMatriz(Resultado, "Resultado da Soma");
 
     // Multiplicando matrizes
     multiplicarMatrizes(A, B, Resultado);
-    printf("Resultado da Multiplicação:\n");
-    for (int i = 0; i < MAX; i++) {
-        for (int j = 0; j < MAX; j++) {
-            printf("%.2f ", Resultado[i][j]);
-        }
-        printf("\n");
-    }
+    imprimirMatriz(Resultado, "Resultado da Multiplicação");
 
     return 0;
 }
