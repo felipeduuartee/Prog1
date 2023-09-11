@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     int i = 0;
     while (expressao[i] != '\0') {
         if (expressao[i] == '(' || expressao[i] == ')') {
-            if (ehVazio(parenteses) || expressao[i] == '(') {
+            if (estaVazio(parenteses) || expressao[i] == '(') {
                 empilhar(&parenteses, expressao[i]);
             } else if (verTopo(parenteses) == '(') {
                 desempilhar(&parenteses);
