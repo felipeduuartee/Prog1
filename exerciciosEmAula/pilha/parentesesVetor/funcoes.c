@@ -2,6 +2,11 @@
 
 void empilhar(struct pilha *p, char prox) {
 
+    if (estaCheio(*p)) {
+        printf("A pilha está cheia!\n ");
+        exit(1);
+    }
+
     (*p).pilha[(*p).topo] = prox;
     (*p).topo++;
 
