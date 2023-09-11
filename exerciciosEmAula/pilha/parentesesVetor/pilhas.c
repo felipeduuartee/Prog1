@@ -1,8 +1,8 @@
 #include "pilhas.h"
 
 int main(int argc, char *argv[]) {
-    struct pilha parenteses;
-    parenteses.topo = 0;
+    struct pilha casado;
+    casado.topo = 0;
 
     if(argc < 2) {
         printf("Por favor, forneça uma expressão como argumento.\n");
@@ -12,21 +12,22 @@ int main(int argc, char *argv[]) {
     char *expressao = argv[1];
     printf("Expressão: %s\n", expressao);
 
-    int i = 0;
-    while (expressao[i] != '\0') {
-        if (expressao[i] == '(' || expressao[i] == ')') {
-            if (estaVazio(parenteses) || expressao[i] == '(') {
-                empilhar(&parenteses, expressao[i]);
-            } else if (verTopo(parenteses) == '(') {
-                desempilhar(&parenteses);
-            }
+   for(int i = 0; i < 100; i++) {
+        if(expressao[i] == '\0') {
+            break;
         }
-        i++;
-    }
+        if(expressao[i] == '(') {
+            empilhar(&casado, expressao[i]);
+        }
+        if(expressao[i] == ')') {
+            desempilhar(&casado);
+        }
+   }
 
-    printf("\nO tamanho da pilha é %d\n", parenteses.topo);
 
-    if (eh_vazio(parenteses)) {
+    printf("\nO tamanho da pilha é %d\n", casado.topo);
+
+    if (estaVazio(casado)) {
         printf("Está vazia\n");
     } else {
         printf("Não está vazia\n");

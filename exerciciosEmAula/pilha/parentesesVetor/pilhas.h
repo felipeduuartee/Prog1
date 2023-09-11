@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 struct pilha {
     int topo;
