@@ -12,17 +12,20 @@ int main(int argc, char *argv[]) {
     char *expressao = argv[1];
     printf("Expressão: %s\n", expressao);
 
-   for(int i = 0; i < 100; i++) {
-        if(expressao[i] == '\0') {
-            break;
-        }
-        if(expressao[i] == '(') {
+int i = 0;
+while (expressao[i] != '\0') {
+    if (expressao[i] == '(') {
+        empilhar(&casado, expressao[i]);
+    } else if (expressao[i] == ')') {
+        if (!estaVazio(casado) && verTopo(casado) == '(') {
+            desempilhar(&casado);
+        } else {
             empilhar(&casado, expressao[i]);
         }
-        if(expressao[i] == ')') {
-            desempilhar(&casado);
-        }
-   }
+    }
+    i++;
+}
+
 
 
     printf("\nO tamanho da pilha é %d\n", casado.topo);
