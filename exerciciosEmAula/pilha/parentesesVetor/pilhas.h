@@ -5,9 +5,8 @@ struct pilha {
     char pilha[100];
 };
 
-void empilhar(struct pilha *p, char novo) {
-
-    (*p).pilha[(*p).topo] = novo;
-    (*p).topo++;
-    
-};
+void empilhar(struct pilha *p, char novo);
+void desempilhar(struct pilha *p);
+int estaCheio(struct pilha p);
+int estaVazio(struct pilha p);
+char verTopo(struct pilha p);
