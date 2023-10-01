@@ -1,6 +1,7 @@
 #include "ordenacao.h"
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 void getNome(char nome[]){
     strncpy(nome, "Felipe Duarte Silva", MAX_CHAR_NOME);
@@ -14,11 +15,17 @@ unsigned int getGRR(){
 
 // Preencher o vetor
 void preencherVetor(int* vetor, int tamVetor) {
-    int valorAtual = tamVetor;
+    int valorAtual = tamVetor - 1;
 
     for (int i = 0; i < tamVetor; i++) {
         vetor[i] = valorAtual;
         valorAtual--;
+    }
+}
+
+void preencherVetorOrdenado(int* vetor, int tamVetor) {
+    for (int i = 0; i < tamVetor; i++) {
+        vetor[i] = i;
     }
 }
 
@@ -38,9 +45,17 @@ void troca(int *a, int *b) {
 
 // Funções de busca sequencial recursiva
 int buscaSequencialRecursiva(int vetor[], int inicio, int tam, int valor, long* numComparacoes) {
+    // Se o índice 'inicio' atingir o tamanho do vetor, significa que o valor não foi encontrado
+    if (inicio >= tam || vetor[inicio] > valor) 
+        return -1;
+
     (*numComparacoes)++;
-    if (inicio >= tam) return -1;
-    if (vetor[inicio] == valor) return inicio;
+
+    
+    if (vetor[inicio] == valor) 
+        return inicio;
+
+
     return buscaSequencialRecursiva(vetor, inicio + 1, tam, valor, numComparacoes);
 }
 
@@ -50,13 +65,22 @@ int buscaSequencial(int vetor[], int tam, int valor, long* numComparacoes) {
     return buscaSequencialRecursiva(vetor, 0, tam, valor, numComparacoes);
 }
 
+
 // Funções de busca binária recursiva
 int buscaBinariaRecursiva(int vetor[], int inicio, int fim, int valor, long* numComparacoes) {
-    if (inicio > fim) return -1;
-    int meio = (inicio + fim) / 2;
+    if (inicio > fim) 
+        return -1;
+
+    int meio = inicio + (fim - inicio) / 2;
+
     (*numComparacoes)++;
-    if (vetor[meio] == valor) return meio; 
-    else if (vetor[meio] > valor) return buscaBinariaRecursiva(vetor, inicio, meio - 1, valor, numComparacoes);
+    
+    if (vetor[meio] == valor) 
+        return meio; 
+
+    else if 
+        (vetor[meio] > valor) return buscaBinariaRecursiva(vetor, inicio, meio - 1, valor, numComparacoes);
+        
     else return buscaBinariaRecursiva(vetor, meio + 1, fim, valor, numComparacoes);
 }
 
@@ -129,85 +153,99 @@ long selectionSort(int vetor[], int tam) {
     return numComparacoes;
 }
 
-// Funções auxiliares do merge sort
+
+void copiar(int v[], int u[], int a, int b) {
+    int i = 0;
+    while (i <= b - a) {
+        v[a + i] = u[i];
+        i++;
+    }
+}
+
 void merge(int vetor[], int inicio, int meio, int fim, long* numComparacoes) {
-    int i, j, k;
-    int n1 = meio - inicio + 1;
-    int n2 = fim - meio;
 
-    // Criar vetores temporários
-    int L[n1], R[n2];
-
-    // Copiar dados para vetores temporários L[] e R[]
-    for (i = 0; i < n1; i++) {
-        L[i] = vetor[inicio + i];
-    }
-    for (j = 0; j < n2; j++) {
-        R[j] = vetor[meio + 1 + j];
+    if (inicio >= fim) {
+        return;
     }
 
-    // Merge dos vetores temporários de volta para o vetor original
-    i = 0; 
-    j = 0; 
-    k = inicio;
-    while (i < n1 && j < n2) {
-        (*numComparacoes)++;
-        if (L[i] <= R[j]) {
-            vetor[k] = L[i];
+    int k = 0;
+    int i = inicio;
+    int j = meio + 1;
+
+    // Criando um vetor auxiliar
+    int *u = (int*) malloc((fim - inicio + 1) * sizeof(int));
+    if (!u) {
+        printf("Erro de alocação de memória!\n");
+        exit(1);
+    }
+
+    while (k <= fim - inicio) {
+        int p;
+        if (j > fim || (i <= meio && vetor[i] <= vetor[j])) {
+            p = i;
             i++;
         } else {
-            vetor[k] = R[j];
+            p = j;
             j++;
         }
+        (*numComparacoes)++; // Incrementando a contagem de comparações
+        u[k] = vetor[p];
         k++;
     }
 
-    while (i < n1) {
-        vetor[k] = L[i];
-        i++;
-        k++;
-    }
+    copiar(vetor, u, inicio, fim);
+    free(u); // Liberando a memória do vetor auxiliar após seu uso
+}
 
-    while (j < n2) {
-        vetor[k] = R[j];
-        j++;
-        k++;
-    }
+long mergeSortRecursive(int vetor[], int a, int b, long* numComparacoes) {
+    if (a >= b)
+        return 0;
+
+    int m = (a + b) / 2;
+    mergeSortRecursive(vetor, a, m, numComparacoes);
+    mergeSortRecursive(vetor, m + 1, b, numComparacoes);
+    merge(vetor, a, m, b, numComparacoes);
+
+    return *numComparacoes;
 }
 
 long mergeSort(int vetor[], int tam) {
     long numComparacoes = 0;
-    // Começamos com sub-arrays de tamanho 1 e dobramos o tamanho em cada iteração.
-    for (int curr_tam = 1; curr_tam <= tam-1; curr_tam = 2*curr_tam) {
-        for (int inicio = 0; inicio < tam-1; inicio += 2*curr_tam) {
-            int meio = inicio + curr_tam - 1;
-            int fim = (inicio + 2*curr_tam - 1 < tam) ? (inicio + 2*curr_tam - 1) : (tam-1);
-            merge(vetor, inicio, meio, fim, &numComparacoes);
-        }
-    }
+    mergeSortRecursive(vetor, 0, tam - 1, &numComparacoes);
     return numComparacoes;
 }
 
-long partition(int vetor[], int inicio, int fim, long* numComparacoes) {
-    int pivot = vetor[fim]; 
-    int i = inicio - 1;
-    for (int j = inicio; j <= fim - 1; j++) {
+
+// Função de particionamento
+long particionar(int vetor[], int inicio, int fim, long* numComparacoes) {
+    // Escolher o elemento do meio como pivô
+    int meio = inicio + (fim - inicio) / 2;
+    int x = vetor[meio];  
+   
+    // Trocar o pivô com o último elemento
+    troca(&vetor[meio], &vetor[fim]);
+
+    int m = inicio;
+    for (int i = inicio; i <= fim - 1; i++) {
         (*numComparacoes)++;
-        if (vetor[j] < pivot) {
-            i++;
-            troca(&vetor[i], &vetor[j]);
+        if (vetor[i] <= x) {
+            troca(&vetor[m], &vetor[i]);
+            m++;
         }
     }
-    troca(&vetor[i + 1], &vetor[fim]);
-    return (i + 1);
+    // Coloque o pivô (elemento atual do final) em sua posição correta
+    troca(&vetor[m], &vetor[fim]);
+    return m;
 }
 
+
 long quickSortRecursivo(int vetor[], int inicio, int fim, long* numComparacoes) {
-    if (inicio < fim) {
-        int pi = partition(vetor, inicio, fim, numComparacoes);
-        quickSortRecursivo(vetor, inicio, pi - 1, numComparacoes);
-        quickSortRecursivo(vetor, pi + 1, fim, numComparacoes);
+    if (inicio >= fim) {
+        return *numComparacoes;  // Caso base: não precisa ordenar se o segmento tem tamanho <= 1
     }
+    int m = particionar(vetor, inicio, fim, numComparacoes);
+    quickSortRecursivo(vetor, inicio, m - 1, numComparacoes);
+    quickSortRecursivo(vetor, m + 1, fim, numComparacoes);
     return *numComparacoes;
 }
 
@@ -217,32 +255,3 @@ long quickSort(int vetor[], int tam) {
     return numComparacoes;
 }
 
-void maxHeapify(int vetor[], int tam, int i, long* numComparacoes) {
-    int maior = i;
-    int esquerda = 2*i + 1;
-    int direita = 2*i + 2;
-    if (esquerda < tam && vetor[esquerda] > vetor[maior]) {
-        maior = esquerda;
-        (*numComparacoes)++;
-    }
-    if (direita < tam && vetor[direita] > vetor[maior]) {
-        maior = direita;
-        (*numComparacoes)++;
-    }
-    if (maior != i) {
-        troca(&vetor[i], &vetor[maior]);
-        maxHeapify(vetor, tam, maior, numComparacoes);  // Recursão no nó filho
-    }
-}
-
-long heapSort(int vetor[], int tam) {
-    long numComparacoes = 0;
-    for (int i = tam / 2 - 1; i >= 0; i--) {
-        maxHeapify(vetor, tam, i, &numComparacoes);
-    }
-    for (int i = tam - 1; i > 0; i--) {
-        troca(&vetor[0], &vetor[i]);
-        maxHeapify(vetor, i, 0, &numComparacoes);
-    }
-    return numComparacoes;
-}
