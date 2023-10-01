@@ -3,119 +3,125 @@
 #include <time.h>
 #include "ordenacao.h"
 
-int main(){
-        char nome[MAX_CHAR_NOME];
-        int idxBusca;
-        long numComp;
+int main()
+{
+    char nome[MAX_CHAR_NOME];
+    int idxBusca;
+    long numComp;
 
-        //Dica: somente é posśivel criar vetores grandes utilizando alocação dinâmica de memória
-        //Veja um exemplo de alocação dinâmica a seguir
-        int tamVetor = 10;
-        int* vetor = malloc(tamVetor * sizeof(int));
+    // Dica: somente é posśivel criar vetores grandes utilizando alocação dinâmica de memória
+    // Veja um exemplo de alocação dinâmica a seguir
+    int tamVetor = 1000000000;
+    int tamVetorInsESel = 100000;
+    int *vetor = malloc(tamVetorInsESel * sizeof(int));
 
-        if(vetor == NULL){
-                printf("Falha fatal. Impossível alocar memoria.");
-                return 1;
-        }
+    if (vetor == NULL)
+    {
+        printf("Falha fatal. Impossível alocar memoria.");
+        return 1;
+    }
 
-        // Preenchendo o vetor de forma aleatória
-       /* for (int i = 0; i < tamVetor; i++) {
-                vetor[i] = rand() % 100;
-        }
-        */
+    preencherVetor(vetor, tamVetorInsESel);
 
-        preencherVetor(vetor, tamVetor);
-        
+    getNome(nome);
+    printf("Trabalho de %s\n", nome);
+    printf("GRR %u\n", getGRR());
 
-        getNome(nome);
-        printf("Trabalho de %s\n", nome);
-        printf("GRR %u\n", getGRR());
+    // Medição do tempo de cada algoritmo
+    clock_t start, end;
+    double total;
 
-        //Medição do tempo de cada algoritmo
-        clock_t start, end;
-        double total;
+    printf("\n");
+    printf("---------Vetor de %d posições---------\n", tamVetorInsESel);
+    printf("\n");
 
-        printf("---------Vetor de %d posições---------\n", tamVetor);
-        printf("\n");
+    // Insertion Sort: Medição Tempo e Comparação
 
-        imprimirVetor(vetor, tamVetor);
+    start = clock(); // start recebe o "ciclo" corrente
 
-        
-        // Insertion Sort: Medição Tempo e Comparação
-        start = clock();//start recebe o "ciclo" corrente
-        numComp = insertionSort(vetor, tamVetor);
-        end = clock();//end recebe o "ciclo" corrente
-        total = ((double)end - start)/CLOCKS_PER_SEC;
-        imprimirVetor(vetor, tamVetor);
-        printf("Insertion Sort - Tempo: %f segundos, Comparacoes: %ld\n", total, numComp);
-        free(vetor);
-    
-        // "Desordenar" o vetor novamente
-        vetor = malloc(tamVetor * sizeof(int));
-        preencherVetor(vetor, tamVetor);
-        // Selection Sort: Medição Tempo e Comparação
-        start = clock();
-    numComp = selectionSort(vetor, tamVetor);
+    numComp = insertionSort(vetor, tamVetorInsESel);
+
+    end = clock(); // end recebe o "ciclo" corrente
+    total = ((double)end - start) / CLOCKS_PER_SEC;
+
+    printf("Insertion Sort - Tempo: %f segundos, Comparacoes: %ld\n", total, numComp);
+    free(vetor);
+
+    // "Desordenar" o vetor novamente
+    vetor = malloc(tamVetorInsESel * sizeof(int));
+
+    preencherVetor(vetor, tamVetorInsESel);
+
+    // Selection Sort: Medição Tempo e Comparação
+    start = clock();
+    numComp = selectionSort(vetor, tamVetorInsESel);
     end = clock();
     total = ((double)end - start) / CLOCKS_PER_SEC;
-    imprimirVetor(vetor, tamVetor);
+
     printf("Selection Sort - Tempo: %f segundos, Comparacoes: %ld\n", total, numComp);
     free(vetor);
 
-         // "Desordenar" o vetor novamente
-        vetor = malloc(tamVetor * sizeof(int));
-        preencherVetor(vetor, tamVetor);
-        // Merge Sort: Medição Tempo e Comparação
-        start = clock();
+    printf("\n");
+    printf("---------Vetor de %d posições---------\n", tamVetor);
+    printf("\n");
+
+
+
+    
+    // "Desordenar" o vetor novamente
+    vetor = malloc(tamVetor * sizeof(int));
+    preencherVetor(vetor, tamVetor);
+    // Merge Sort: Medição Tempo e Comparação
+    start = clock();
     numComp = mergeSort(vetor, tamVetor);
-	    end = clock();
+    end = clock();
     total = ((double)end - start) / CLOCKS_PER_SEC;
-        imprimirVetor(vetor, tamVetor);
+
     printf("Merge Sort - Tempo: %f segundos, Comparacoes: %ld\n", total, numComp);
+
     free(vetor);
 
-         // "Desordenar" o vetor novamente
-        vetor = malloc(tamVetor * sizeof(int));
-        preencherVetor(vetor, tamVetor);
-        // Quick Sort: Medição Tempo e Comparação
-        start = clock();
+    // "Desordenar" o vetor novamente
+    vetor = malloc(tamVetor * sizeof(int));
+    preencherVetor(vetor, tamVetor);
+    // Quick Sort: Medição Tempo e Comparação
+    start = clock();
     numComp = quickSort(vetor, tamVetor);
     end = clock();
     total = ((double)end - start) / CLOCKS_PER_SEC;
-    imprimirVetor(vetor, tamVetor);
+
     printf("Quick Sort - Tempo: %f segundos, Comparacoes: %ld\n", total, numComp);
+
     free(vetor);
 
-         // "Desordenar" o vetor novamente
-        vetor = malloc(tamVetor * sizeof(int));
-        preencherVetor(vetor, tamVetor);
-        // Heap Sort: Medição Tempo e Comparação
-        start = clock();
-    numComp = heapSort(vetor, tamVetor);
-    end = clock();
-    total = ((double)end - start) / CLOCKS_PER_SEC;
-    imprimirVetor(vetor, tamVetor);
-    printf("Heap Sort - Tempo: %f segundos, Comparacoes: %ld\n", total, numComp);
- 
- 
-        // Busca Sequencial: Medição Tempo e Comparação
-        start = clock();
-    idxBusca = buscaSequencial(vetor, tamVetor, 3, &numComp);
-    end = clock();
-    total = ((double)end - start) / CLOCKS_PER_SEC;
-    imprimirVetor(vetor, tamVetor);
-    printf("Busca Sequencial - Tempo: %f segundos, Comparacoes: %ld\n", total, numComp);
-        printf("Resultado: %d\n", idxBusca);
 
-        // Busca Binária: Medição Tempo e Comparação
-        start = clock();
-    idxBusca = buscaBinaria(vetor, tamVetor, 3, &numComp);
+
+    vetor = malloc(tamVetor * sizeof(int));
+    preencherVetorOrdenado(vetor, tamVetor);
+    // Busca Sequencial: Medição Tempo e Comparação
+    start = clock();
+    idxBusca = buscaSequencial(vetor, tamVetor, 100001, &numComp);
+    end = clock();
+    total = ((double)end - start) / CLOCKS_PER_SEC;
+
+    printf("Busca Sequencial - Tempo: %f segundos, Comparacoes: %ld\n", total, numComp);
+    printf("Resultado: %d\n", idxBusca);
+    
+    free(vetor);
+
+
+
+    vetor = malloc(tamVetor * sizeof(int));
+    preencherVetorOrdenado(vetor, tamVetor);
+    // Busca Binária: Medição Tempo e Comparação
+    start = clock();
+    idxBusca = buscaBinaria(vetor, tamVetor, 1000000001, &numComp);
     end = clock();
     total = ((double)end - start) / CLOCKS_PER_SEC;
     printf("Busca Binaria - Tempo: %f segundos, Comparacoes: %ld\n", total, numComp);
-        printf("Resultado: %d\n", idxBusca);
+    printf("Resultado: %d\n", idxBusca);
 
-        free(vetor);
+    free(vetor);
 
-        return 0;
+    return 0;
 }
