@@ -11,6 +11,7 @@ void getNome(char nome[]);
 unsigned int getGRR();
 
 
+void preencherVetorOrdenado(int* vetor, int tamVetor);
 void preencherVetor(int* vetor, int tamVetor);
 void imprimirVetor(int vetor[], int tam);
 /* Assuma que os vetores estão ordenados ao chamar as funções de busca
@@ -42,10 +43,13 @@ int encontrarMenor(int vetor[], int inicio, int tam, long* numComparacoes);
 void selectionSortRecursivo(int vetor[], int inicio, int tam, long* numComparacoes);
 long selectionSort(int vetor[], int tam);
 
+
+void copiar(int v[], int u[], int a, int b);
+long mergeSortRecursive(int vetor[], int a, int b, long* numComparacoes);
 void merge(int vetor[], int inicio, int meio, int fim, long* numComparacoes);
 long mergeSort(int vetor[], int tam);
 
-long partition(int vetor[], int inicio, int fim, long* numComparacoes);
+long particionar(int vetor[], int inicio, int fim, long* numComparacoes);
 long quickSortRecursivo(int vetor[], int inicio, int fim, long* numComparacoes);
 long quickSort(int vetor[], int tam);
 
