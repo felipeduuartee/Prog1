@@ -1,0 +1,441 @@
+\documentclass[conference]{IEEEtran}
+\usepackage[portuguese]{babel}
+\usepackage{cite}
+\usepackage{amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{pgfplots}
+\usetikzlibrary{plotmarks}
+%\usepackage{nolist}
+\usepackage{changepage}
+\usepackage{float}
+\usepackage{subfig}
+\usepackage{amsmath}
+\usepackage{tabularx}
+
+
+\pgfplotsset{compat=1.16}
+\pgfkeys{/pgf/number format/.cd,1000 sep={}}
+\pgfplotsset{standard/.style={
+    title style={font=\bfseries, yshift=-0.5ex},
+    xlabel style={font=\bfseries},
+    ylabel style={font=\bfseries},
+    xmode=log,
+    ymode=log,
+    legend pos=north west,
+    grid=major,
+    width=\linewidth,
+    height=3.5cm
+}}
+
+\begin{document}
+
+\title{Estudo Sistemático de Algoritmos de Busca e Ordenação em Diferentes Contextos}
+
+\author{\IEEEauthorblockN{Felipe Duarte Silva\\ \footnotesize{GRR20231957}}
+\textit{Universidade Federal do Paraná -- UFPR}\\
+felipeduarte@ufpr.br}
+
+\maketitle
+
+\begin{abstract}
+Este relatório aborda e compara diferentes algoritmos de busca e ordenação, considerando sua eficiência, número de comparações e tempo de execução para diferentes tamanhos de entradas.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Algoritmos, Busca Sequencial, Busca Binária, Insertion Sort, Selection Sort, Merge Sort, Quick Sort, Análise de eficiência e Comparação de desempenho.
+\end{IEEEkeywords}
+
+\section{Introdução}
+Este relatório investiga versões recursivas de cinco algoritmos de ordenação e dois de busca implementados em C. Para simular os piores casos, utilizamos vetores ordenados de maneira não crescente. Enquanto analisamos a performance da maioria dos algoritmos de ordenação até um bilhão de posições, o Insertion Sort e o Selection Sort foram limitados a cem mil. Os resultados são apresentados através de gráficos que relacionam o número de comparações, tempo de execução e tamanho do vetor.
+
+\section{Algoritmos de Busca}
+\subsection{Busca Sequencial}
+A Busca Sequencial, consiste em uma técnica que analisa cada elemento da lista de dados sequencialmente. O processo continua até que o elemento desejado seja encontrado ou até que todos os elementos tenham sido verificados, indicando a ausência do elemento na lista.
+
+\subsection{Busca Binária}
+A Busca Binária é uma técnica de busca que tem como pré-requisito que a lista de dados esteja previamente ordenada. O algoritmo divide o conjunto de dados pela metade repetidamente, eliminando a metade onde o item não pode estar presente, até que o elemento desejado seja localizado ou o conjunto esteja vazio.
+
+\section{Algoritmos de Ordenação}
+\subsection{Insertion Sort}
+O algoritmo Insertion Sort, percorre sequencialmente a lista de dados, posicionando cada elemento na posição adequada em relação aos elementos já avaliados, garantindo a ordenação até o elemento atual.
+
+\subsection{Selection Sort}
+O algoritmo Selection Sort identifica o menor (ou maior) elemento da lista e troca-o com o primeiro elemento não ordenado. O processo é repetido até que todos os elementos estejam ordenados.
+
+\subsection{Merge Sort}
+O Merge Sort particiona a lista de dados em duas metades, ordena-as individualmente e, posteriormente, mescla as duas metades ordenadas para produzir a lista final ordenada.
+
+\subsection{Quick Sort}
+O Quick Sort seleciona um elemento chamado 'pivô' e particiona a lista de modo que todos os elementos menores que o pivô venham antes dele, e todos os elementos maiores venham depois. Este processo é aplicado às sublistas resultantes.
+
+\section{Resultados dos Testes}
+A avaliação do desempenho dos algoritmos foi realizada usando vetores configurados em ordem não crescente e testados em uma máquina com processador 11th Gen Intel® Core™ i7-1165G7 com velocidade base de 2.80GHz e um total de 15GiB de RAM. Sistema Operacional: Ubuntu 20.04.6. Os resultados são apresentados abaixo graficamente ilustrados com números de comparações aproximados.
+
+
+\vspace{0.4cm}
+
+
+
+\textbf{Insertion Sort}: Custo de \(C(n) = ((n(n - 1))/2)\) comparações e um tempo de execução que varia linearmente com o tamanho, conforme ilustrado na figura 1.
+\begin{figure}[H]
+ %\begin{adjustwidth}{-0.1cm}{}
+    \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                title={Comparações vs. Tamanho},
+                xlabel={Tamanho},
+                ylabel={Comparações},
+                xtick={1000,50000,100000},
+                xticklabels={$10^3$,$5 \times 10^4$,$10^5$},
+                ytick={5*10^5,1.25*10^9,5*10^9},
+                yticklabels={$5 \times 10^5$,$1.25 \times 10^9$,$5 \times 10^9$},
+                xmode=log,
+                ymode=log,
+                legend pos=north west,
+                grid=major,
+                width=\linewidth,
+                height=3.8cm,
+                width=8cm
+            ]
+
+            \addplot[blue,mark=*,dashed] coordinates {
+                (1000, 5*10^5)
+                (50000, 1.25*10^9)
+                (100000, 5*10^9)
+            };
+            \end{axis}
+        \end{tikzpicture}
+        %\end{adjustwidth}
+
+    \hfill
+        \begin{tikzpicture}
+         \begin{adjustwidth}{-0.2cm}{}
+
+            \begin{axis}[
+                title={Tempo vs. Tamanho},
+                xlabel={Tamanho},
+                ylabel={Tempo (s)},
+                xtick={1000,50000,100000},
+                xticklabels={$10^3$,$5 \times 10^4$,$10^5$},
+                ytick={0.004044,3.835591,14.897176},
+                yticklabels={0.004,3.836,14.897},
+                xmode=log,
+                ymode=log,
+                legend pos=north west,
+                grid=major,
+                width=\linewidth,
+                height=3.8cm,
+                width=8cm
+            ]
+            \addplot[red,mark=*,dashed] coordinates {
+                (1000, 0.004044)
+                (50000, 3.835591)
+                (100000, 14.897176)
+            };
+            \end{axis}
+       \end{adjustwidth}
+        \end{tikzpicture}
+
+    \caption{Desempenho do Insertion Sort: comparações e tempo de execução quanto ao tamanho do vetor}
+    \label{fig:insertionSortPerformanceGraph}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\textbf{Selection Sort}: Custo de \(C(n) = ((n(n - 1))/2)\) comparações e um tempo de execução que varia linearmente com o tamanho, conforme ilustrado na figura 2.
+
+\begin{figure}[H]
+ \begin{adjustwidth}{-1.9cm}{}
+    \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                title={Comparações vs. Tamanho},
+                xlabel={Tamanho},
+                ylabel={Comparações},
+                xtick={1000,50000,100000},
+                xticklabels={$10^3$,$5 \times 10^4$,$10^5$},
+                ytick={5*10^5,1.25*10^9,5*10^9},
+                yticklabels={$5 \times 10^5$,$1.25 \times 10^9$,$5 \times 10^9$},
+                xmode=log,
+                ymode=log,
+                legend pos=north west,
+                grid=major,
+                width=\linewidth,
+                height=4cm,
+                width=8cm
+            ]
+
+            \addplot[black,mark=*,dashed] coordinates {
+                (1000, 5*10^5)
+                (50000, 1.25*10^9)
+                (100000, 5*10^9)
+            };
+            \end{axis}
+        \end{tikzpicture}
+        \end{adjustwidth}
+
+        \vspace{0.4CM}
+    \hfill
+        
+        \begin{adjustwidth}{-0.3cm}{}
+        \begin{tikzpicture}
+        
+            \begin{axis}[
+                title={Tempo vs. Tamanho},
+                xlabel={Tamanho},
+                ylabel={Tempo (s)},
+                xtick={1000,50000,100000},
+                xticklabels={$10^3$,$5 \times 10^4$,$10^5$},
+                ytick={0.003,3.227,13.042},
+                yticklabels={0.003,3.227,13.042},
+                xmode=log,
+                ymode=log,
+                legend pos=north west,
+                grid=major,
+                width=\linewidth,
+                height=4cm,
+                width=8cm
+            ]
+            \addplot[brown,mark=*,dashed] coordinates {
+                (1000, 0.003)
+                (50000, 3.227)
+                (100000, 13.042)
+            };
+            \end{axis}
+        \end{tikzpicture}
+    \end{adjustwidth}
+    \caption{Desempenho do Selection Sort: comparações e tempo de execução quanto ao tamanho do vetor}
+    \label{fig:insertionSortPerformanceGraph}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\textbf{Merge Sort}: Custo de aproximadamente \(C(n) = (n\times log n)\) comparações e um tempo de execução que varia linearmente com o tamanho, conforme ilustrado na figura 3.
+
+\begin{figure}[!htpb]
+ \begin{adjustwidth}{-2cm}{}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            title={Comparações vs. Tamanho},
+            xlabel={Tamanho},
+            ylabel={Comparações},
+            xtick={1000000,100000000,1000000000},
+            xticklabels={$10^6$,$10^8$,$10^9$},
+            ytick={9884992,1314447104,14846928128},
+            yticklabels={$9.88 \times 10^6$,$1.31 \times 10^9$,$14.85 \times 10^9$},
+            xmode=log,
+            ymode=log,
+            legend pos=north west,
+            grid=major,
+            width=\linewidth,
+            height=3.5cm,
+            width=8cm
+        ]
+        \definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}
+        \addplot[darkgreen,mark=*,dashed] coordinates {
+            (1000000, 9884992)
+            (100000000, 1314447104)
+            (1000000000, 14846928128)
+        };
+        \end{axis}
+    \end{tikzpicture}
+        \end{adjustwidth}
+    \hfill
+            \vspace{0.2CM}
+
+         \begin{adjustwidth}{-0.48cm}{}
+    \begin{tikzpicture}
+        \begin{axis}[
+            title={Tempo vs. Tamanho},
+            xlabel={Tamanho},
+            ylabel={Tempo (s)},
+            xtick={1000000,100000000,1000000000},
+            xticklabels={$10^6$,$10^8$,$10^9$},
+            ytick={0.173014,18.439194,205.011166},
+            yticklabels={0.173,18.439,205.011},
+            xmode=log,
+            ymode=log,
+            legend pos=north west,
+            grid=major,
+            width=\linewidth,
+            height=3.58cm,
+            width=8cm
+        ]
+        \addplot[gray,mark=*,dashed] coordinates {
+            (1000000, 0.173014)
+            (100000000, 18.439194)
+            (1000000000, 205.011166)
+        };
+        \end{axis}
+    \end{tikzpicture}
+    \end{adjustwidth}
+    \caption{Desempenho do Merge Sort: comparações e tempo de execução quanto ao tamanho do vetor}
+    \label{fig:mergeSortPerformanceGraph}
+\end{figure}
+
+\pagebreak
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\textbf{Quick Sort}: Para a escolha do pivô no valor do meio de um vetor preenchido em ordem não crescente, o custo é de aproximadamente \(C(n) = (n\times log n)\) comparações e um tempo de execução de que varia linearmente com o tamanho, conforme ilustrado na figura 4.
+\begin{figure}[H]
+ \begin{adjustwidth}{0cm}{}
+    \centering
+        \begin{tikzpicture}
+            \begin{axis}[
+                title={Comparações vs. Tamanho},
+                xlabel={Tamanho},
+                ylabel={Comparações},
+                xtick={1000000,100000000,1000000000},
+                xticklabels={$10^6$,$10^8$,$10^9$},
+                ytick={18401192,2511626270,28367876889},
+                yticklabels={$1.84 \times 10^7$,$2.51 \times 10^9$,$28.37 \times 10^9$},
+                xmode=log,
+                ymode=log,
+                legend pos=north west,
+                grid=major,
+                width=\linewidth,
+                height=3.5cm,
+                width=8cm
+            ]
+            \definecolor{darkpurple}{rgb}{0.5, 0.0, 0.5}
+            \addplot[darkpurple,mark=*,dashed] coordinates {
+                (1000000, 18401192)
+                (100000000, 2511626270)
+                (1000000000, 28367876889)
+            };
+            \end{axis}
+        \end{tikzpicture}
+            \end{adjustwidth}
+        %\caption{Desempenho do Quick Sort: Comparações em relação ao tamanho do vetor}
+    \hfill
+            
+
+         \begin{adjustwidth}{0.58cm}{}
+        \begin{tikzpicture}
+            \begin{axis}[
+                title={Tempo vs. Tamanho},
+                xlabel={Tamanho},
+                ylabel={Tempo (s)},
+                xtick={1000000,100000000,1000000000},
+                xticklabels={$10^6$,$10^8$,$10^9$},
+                ytick={0.085517,11.277285,123.930472},
+                yticklabels={0.086,11.277,123.930},
+                xmode=log,
+                ymode=log,
+                legend pos=north west,
+                grid=major,
+                width=\linewidth,
+                height=3.5cm,
+                width=8cm
+            ]
+            \definecolor{darkyellow}{rgb}{0.9, 0.83, 0.0}
+            \addplot[darkyellow,mark=*,dashed] coordinates {
+                (1000000, 0.085517)
+                (100000000, 11.277285)
+                (1000000000, 123.930472)
+            };
+            \end{axis}
+        \end{tikzpicture}
+    \end{adjustwidth}
+    \caption{Desempenho do Quick Sort: comparações e tempo de execução quanto ao tamanho do vetor. }
+    \label{fig:quickSortPerformanceGraph}
+\end{figure}
+\vspace{-0.4cm}
+{\small \textit{Nota: Gráficos em escala log-base-10. Assim, comportamentos \(n^2\) ou \(n \times \log n\) são linhas retas.}}
+
+\section{Algoritmos de Busca}
+
+\textbf{Algoritmos de Busca}: As tabelas a seguir representam o número de comparações e o tempo de execução que cada algoritmo demorou para chegar na conclusão de que o elemento buscado não está nos vetores de diferentes tamanhos.
+
+\subsection*{Busca Sequencial}
+%\vspace{0.3cm}
+\begin{tabularx}{0.5\textwidth}{X|X|X}
+\hline
+\textbf{Tamanho} & \textbf{Tempo (s)} & \textbf{Comparações} \\
+
+$10^5$ & 0.0011 & $10^5$ \\
+
+$10^4$ & 0.0001 & $10^4$ \\
+
+$10^3$ & 0.0000 & $10^3$ \\
+\hline
+\end{tabularx}
+\hspace{1cm} % Espaço entre as tabelas
+
+\subsection*{Busca Binária}
+%\vspace{0.3cm}
+\begin{tabularx}{0.5\textwidth}{X|X|X}
+\hline
+\textbf{Tamanho} & \textbf{Tempo (s)} & \textbf{Comparações} \\
+
+$1.41\times10^9$ & 0.000003 & 31 \\
+
+$10^9$ & 0.000002 & 30 \\
+
+$10^8$ & 0.000001 & 27 \\
+\hline
+\end{tabularx}
+
+\vspace{0.5cm}
+
+\section{Conclusão}
+Os resultados destacam a variabilidade de eficiência entre os algoritmos em diferentes contextos. Comprovou-se que o Quick Sort, influenciado pela escolha do pivô, e o Merge Sort são mais eficientes que o Insertion Sort e o Selection Sort, independentemente da dimensão do vetor. Quanto às técnicas de busca, a Busca Binária, que necessita de dados ordenados, supera a Busca Sequencial em eficiência para vetores de todos os tamanhos.
+
+\end{document}
