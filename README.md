@@ -1,10 +1,10 @@
 # Exercícios de Programação 1 - UFPR
 
-Este repositório contém uma coleção de exercícios em linguagem C desenvolvidos como parte da disciplina de Programação 1 na Universidade Federal do Paraná (UFPR).
+Este repositório contém uma coleção de exercícios em linguagem C desenvolvidos como parte das disciplinas de Programação 1 e Algoritmos e Estrutura de Dados 2 na Universidade Federal do Paraná (UFPR). Se você procura informações específicas sobre os exercícios de Programação 1, consulte o README no diretório correspondente.
 
 ## Organização do Repositório
 
-Os exercícios estão organizados em pastas nomeadas por assunto, cada uma correspondendo a um conjunto de exercícios relacionados a um tópico específico.
+Os exercícios estão organizados em pastas diferenciadas em Programação 1 e Algoritmos 2.
 
 ## Como Usar Este Repositório
 
@@ -16,10 +16,11 @@ Os exercícios estão organizados em pastas nomeadas por assunto, cada uma corre
 
 ## Trabalho de ALG2
 
-Se você procura o trabalho da disciplina de Algoritmos e Estruturas de Dados 2 (ALG2), você pode encontrá-lo no diretório correspondente. Este README é específico para a disciplina de Programação 1. Para informações sobre ALG2, consulte o respectivo README no diretório apropriado.
+Se você procura o trabalho da disciplina de Algoritmos e Estruturas de Dados 2, você pode encontrá-lo no diretório correspondente. Este README fornece informações gerais sobre as duas disciplinas.
 
 Aproveite a prática e boa programação!
 
 ## Contribuições
 
 Este repositório é aberto a contribuições. Se você tiver soluções para os exercícios existentes ou quiser adicionar novos exercícios, fique à vontade para contribuir.
+
