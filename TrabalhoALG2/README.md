@@ -7,7 +7,6 @@ Estudo Sistemático de Algoritmos de Busca e Ordenação em Diferentes Contextos
 
 ## Autor
 - **Nome:** Felipe Duarte Silva
-- **GRR:** 20231957
 
 ## Introdução
 Este relatório apresenta um estudo sistemático de algoritmos de busca e ordenação em diferentes contextos. Foram analisados algoritmos de busca sequencial e busca binária, bem como algoritmos de ordenação, incluindo Insertion Sort, Selection Sort, Merge Sort e Quick Sort.
