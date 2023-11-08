@@ -1,4 +1,4 @@
-# Trabalho de Algoritmos e Estruturas de Dados II
+# Trabalho 1 de Algoritmos e Estruturas de Dados II
 
 Este trabalho foi realizado como parte do curso de Algoritmos e Estruturas de Dados II da Universidade Federal do Paraná (UFPR).
 
