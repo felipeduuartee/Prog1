@@ -1,4 +1,4 @@
-Vou deixar aqui todos os exercicios que eu farei durante o curso deste disciplina# Exercícios de Programação 1 - UFPR
+# Exercícios de Programação 1 - UFPR
 
 Este repositório contém uma coleção de exercícios em linguagem C desenvolvidos como parte da disciplina de Programação 1 na Universidade Federal do Paraná (UFPR).
 
