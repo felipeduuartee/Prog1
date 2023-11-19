@@ -6,13 +6,10 @@
 \usepackage{textcomp}
 \usepackage{pgfplots}
 \usetikzlibrary{plotmarks}
-%\usepackage{nolist}
 \usepackage{changepage}
 \usepackage{float}
 \usepackage{subfig}
-\usepackage{amsmath}
 \usepackage{tabularx}
-
 
 \pgfplotsset{compat=1.16}
 \pgfkeys{/pgf/number format/.cd,1000 sep={}}
@@ -34,7 +31,7 @@
 
 \author{\IEEEauthorblockN{Felipe Duarte Silva\\ 
 \textit{Universidade Federal do Paraná -- UFPR}\\
-felipeduarte@ufpr.br}
+felipeduarte@ufpr.br}}
 
 \maketitle
 
@@ -72,14 +69,10 @@ O Quick Sort seleciona um elemento chamado 'pivô' e particiona a lista de modo 
 \section{Resultados dos Testes}
 A avaliação do desempenho dos algoritmos foi realizada usando vetores configurados em ordem não crescente e testados em uma máquina com processador 11th Gen Intel® Core™ i7-1165G7 com velocidade base de 2.80GHz e um total de 15GiB de RAM. Sistema Operacional: Ubuntu 20.04.6. Os resultados são apresentados abaixo graficamente ilustrados com números de comparações aproximados.
 
-
 \vspace{0.4cm}
-
-
 
 \textbf{Insertion Sort}: Custo de \(C(n) = ((n(n - 1))/2)\) comparações e um tempo de execução que varia linearmente com o tamanho, conforme ilustrado na figura 1.
 \begin{figure}[H]
- %\begin{adjustwidth}{-0.1cm}{}
     \centering
         \begin{tikzpicture}
             \begin{axis}[
@@ -106,8 +99,6 @@ A avaliação do desempenho dos algoritmos foi realizada usando vetores configur
             };
             \end{axis}
         \end{tikzpicture}
-        %\end{adjustwidth}
-
     \hfill
         \begin{tikzpicture}
          \begin{adjustwidth}{-0.2cm}{}
@@ -140,20 +131,6 @@ A avaliação do desempenho dos algoritmos foi realizada usando vetores configur
     \caption{Desempenho do Insertion Sort: comparações e tempo de execução quanto ao tamanho do vetor}
     \label{fig:insertionSortPerformanceGraph}
 \end{figure}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 \textbf{Selection Sort}: Custo de \(C(n) = ((n(n - 1))/2)\) comparações e um tempo de execução que varia linearmente com o tamanho, conforme ilustrado na figura 2.
 
@@ -221,35 +198,6 @@ A avaliação do desempenho dos algoritmos foi realizada usando vetores configur
     \label{fig:insertionSortPerformanceGraph}
 \end{figure}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 \textbf{Merge Sort}: Custo de aproximadamente \(C(n) = (n\times log n)\) comparações e um tempo de execução que varia linearmente com o tamanho, conforme ilustrado na figura 3.
 
 \begin{figure}[!htpb]
@@ -316,23 +264,6 @@ A avaliação do desempenho dos algoritmos foi realizada usando vetores configur
 
 \pagebreak
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 \textbf{Quick Sort}: Para a escolha do pivô no valor do meio de um vetor preenchido em ordem não crescente, o custo é de aproximadamente \(C(n) = (n\times log n)\) comparações e um tempo de execução de que varia linearmente com o tamanho, conforme ilustrado na figura 4.
 \begin{figure}[H]
  \begin{adjustwidth}{0cm}{}
@@ -363,10 +294,7 @@ A avaliação do desempenho dos algoritmos foi realizada usando vetores configur
             \end{axis}
         \end{tikzpicture}
             \end{adjustwidth}
-        %\caption{Desempenho do Quick Sort: Comparações em relação ao tamanho do vetor}
     \hfill
-            
-
          \begin{adjustwidth}{0.58cm}{}
         \begin{tikzpicture}
             \begin{axis}[
@@ -405,7 +333,6 @@ A avaliação do desempenho dos algoritmos foi realizada usando vetores configur
 \textbf{Algoritmos de Busca}: As tabelas a seguir representam o número de comparações e o tempo de execução que cada algoritmo demorou para chegar na conclusão de que o elemento buscado não está nos vetores de diferentes tamanhos.
 
 \subsection*{Busca Sequencial}
-%\vspace{0.3cm}
 \begin{tabularx}{0.5\textwidth}{X|X|X}
 \hline
 \textbf{Tamanho} & \textbf{Tempo (s)} & \textbf{Comparações} \\
@@ -420,7 +347,6 @@ $10^3$ & 0.0000 & $10^3$ \\
 \hspace{1cm} % Espaço entre as tabelas
 
 \subsection*{Busca Binária}
-%\vspace{0.3cm}
 \begin{tabularx}{0.5\textwidth}{X|X|X}
 \hline
 \textbf{Tamanho} & \textbf{Tempo (s)} & \textbf{Comparações} \\
