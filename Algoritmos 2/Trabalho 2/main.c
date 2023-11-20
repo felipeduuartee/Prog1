@@ -10,7 +10,7 @@ int main() {
     unsigned long numComp;
     char nome[MAX_CHAR];
     unsigned int *vetorUnsigned;
-    int tamVetor = 100000;
+    int tamVetor = 10000;
     int *vetor = (int *)malloc(tamVetor * sizeof(int));
 
     if (vetor == NULL) {
@@ -21,6 +21,7 @@ int main() {
 
     getNome(nome);
     printf("Trabalho de %s\n", nome);
+    printf("GRR %u\n", getGRR());
 
     
     clock_t start, end;
@@ -29,7 +30,6 @@ int main() {
     // Bucket Sort
     getNomeAlgoritmoExtra(nomeAlg);
     printf("Executando %s\n", nomeAlg);
-    vetor = (int *)malloc(tamVetor * sizeof(int));
     preencherVetorAleatorio(vetor, tamVetor);
 
     start = clock();
@@ -83,7 +83,6 @@ int main() {
  
     // Counting Sort para vetor de unsigned ints
     vetorUnsigned = (unsigned int *)malloc(tamVetor * sizeof(unsigned int));
-
     preencherVetorCountingSort(vetorUnsigned, tamVetor);
 
     start = clock();
