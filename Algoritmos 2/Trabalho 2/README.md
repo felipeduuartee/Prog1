@@ -1,26 +1,35 @@
-# Trabalho de Algoritmos de Ordenação
+# Trabalho 2 de Algoritmos e Estruturas de Dados II
 
-Este é um projeto que implementa e compara diferentes algoritmos de ordenação em linguagem C. O objetivo é analisar o desempenho e a eficiência de algoritmos como Merge Sort, Quick Sort, Heap Sort, Counting Sort e Bucket Sort em diferentes cenários.
+Este trabalho foi realizado como parte do curso de Algoritmos e Estruturas de Dados II da Universidade Federal do Paraná (UFPR).
 
-## Autores
+## Título do Trabalho
+Estudo Sistemático de Algoritmos de Ordenação em Diferentes Contextos
 
-- [Felipe Duarte](https://github.com/felipeduuartee) - Autor principal
+## Autor
+- **Nome:** Felipe Duarte
 
-## Descrição
+## Introdução
+Este relatório apresenta um estudo sistemático de algoritmos de ordenação em diferentes contextos. Foram analisados algoritmos de ordenação, incluindo Merge Sort, Quick Sort, Heap Sort e Bucket Sort.
 
-O projeto consiste em implementações dos seguintes algoritmos de ordenação em C:
+O objetivo deste estudo é avaliar a eficiência desses algoritmos de ordenação em uma variedade de situações e fornecer uma análise detalhada de suas características de desempenho.
 
-- Merge Sort
-- Quick Sort
-- Heap Sort
-- Counting Sort
-- Bucket Sort
+## Algoritmos de Ordenação
+### Merge Sort
+O algoritmo Merge Sort divide a lista de dados em duas metades, ordena cada metade individualmente e, em seguida, mescla as duas metades ordenadas para produzir a lista final ordenada.
 
-Ele inclui uma série de funções de ordenação e utilitários para preencher vetores com dados aleatórios, medir o tempo de execução e contar o número de comparações em cada algoritmo.
+### Quick Sort
+O algoritmo Quick Sort seleciona um elemento chamado "pivô" e particiona a lista de modo que todos os elementos menores que o pivô venham antes dele, e todos os elementos maiores venham depois. Esse processo é aplicado às sublistas resultantes.
 
-## Requisitos
+### Heap Sort
+O algoritmo Heap Sort é baseado em uma estrutura de dados chamada "heap". Ele transforma o vetor em uma árvore de heap, em seguida, extrai repetidamente o elemento máximo (ou mínimo) da árvore e o coloca na posição correta.
 
-- Compilador C (GCC recomendado)
-- Sistema operacional compatível com C (Linux, macOS, Windows, etc.)
+### Bucket Sort
+O algoritmo Bucket Sort distribui os elementos em "buckets" com base em seus valores e, em seguida, ordena cada bucket separadamente. Após a ordenação dos buckets, os elementos são combinados para produzir o resultado final.
 
+## Resultados dos Testes
+Os algoritmos foram avaliados em várias configurações de entrada, incluindo vetores aleatórios e vetores ordenados. Os resultados incluem o tempo de execução e o número de comparações realizadas por cada algoritmo em cada cenário de teste.
 
+## Conclusão
+Os resultados destacam as diferenças de desempenho entre os algoritmos de ordenação em diferentes contextos. O Merge Sort e o Heap Sort mostraram ser consistentemente eficientes em todos os cenários testados, enquanto o Quick Sort teve um desempenho variável dependendo das características do vetor de entrada. O Bucket Sort, embora tenha um desempenho razoável, pode não ser a melhor escolha em todos os casos.
+
+Para informações mais detalhadas, consulte o relatório completo.
