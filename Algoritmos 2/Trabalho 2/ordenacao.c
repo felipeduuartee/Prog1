@@ -13,9 +13,12 @@ void getNome(char nome[]) {
 
 void getNomeAlgoritmoExtra(char nomeAlg[]) {
     // substitua pelo nome do algoritmo que você escolheu
-    strncpy(nomeAlg, "BucketSort", MAX_CHAR);
+    strncpy(nomeAlg, "Bucket Sort", MAX_CHAR);
     nomeAlg[MAX_CHAR - 1] = '\0';
 }
+
+// a função a seguir deve retornar o seu número de GRR
+unsigned int getGRR() { return 20231957; }
 
 
 // Função auxiliar para trocar dois elementos em um vetor
@@ -275,7 +278,7 @@ unsigned long algoritmoExtra(int vetor[], int tam) {
     for (int i = 0; i < tam; i++) {
         buckets[i] = (int *)malloc((max_value + 1) * sizeof(int)); // Alocando espaço suficiente para todos os possíveis valores
         if (buckets[i] == NULL) {
-            perror("Falha na alocação de memória");
+            printf("Falha na alocação de memória");
             exit(1);
         }
     }
