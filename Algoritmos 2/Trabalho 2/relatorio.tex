@@ -1,0 +1,352 @@
+\documentclass[conference]{IEEEtran}
+\usepackage[portuguese]{babel}
+\usepackage{cite}
+\usepackage{amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{pgfplots}
+\usetikzlibrary{plotmarks}
+\usepackage{changepage}
+\usepackage{float}
+\usepackage{subfig}
+\usepackage{tabularx}
+\usepackage{booktabs}
+
+\pgfplotsset{compat=1.16}
+\pgfkeys{/pgf/number format/.cd,1000 sep={}}
+\pgfplotsset{standard/.style={
+    title style={font=\bfseries, yshift=-0.5ex},
+    xlabel style={font=\bfseries},
+    ylabel style={font=\bfseries},
+    xmode=log,
+    ymode=log,
+    legend pos=north west,
+    grid=major,
+    width=\linewidth,
+    height=3.5cm
+}}
+
+\begin{document}
+
+\title{Estudo Sistemático de Algoritmos de Ordenação em Diferentes Contextos}
+
+\author{\IEEEauthorblockN{Felipe Duarte Silva\\ 
+\textit{Universidade Federal do Paraná -- UFPR}\\
+felipeduarte@ufpr.br}}
+
+\maketitle
+
+\begin{abstract}
+Este relatório aborda e compara diferentes algoritmos de ordenação, considerando sua eficiência, número de comparações e tempo de execução para diferentes tamanhos de entradas.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Algoritmos, Merge Sort, Quick Sort, Heapsort, Counting Sort, Bucket Sort, Análise de eficiência e Comparação de desempenho.
+\end{IEEEkeywords}
+
+\vspace{-0.2cm}
+\section{Introdução}
+Este relatório investiga três versões recursivas e duas versões iterativas de algoritmos de ordenação implementados em C. Para fins de testes, utilizamos vetores ordenados de maneira não crescente e vetores ordenados aleatoriamente. Enquanto analisamos a performance dos algoritmos de ordenação recursivos até quinze milhões de posições, o Counting Sort foi testado até cem milhões e o Bucket Sort foi limitado a cem mil. Antes dos resultados, será apresentado brevemente o algoritmo extra escolhido.
+
+
+\section{Algoritmo Extra}
+Bucket Sort sobressai pela distribuição uniforme de elementos em baldes, reduzindo comparações. Com complexidade \( O(n + k) \), é ideal para grandes conjuntos uniformes, otimizando tempo e permitindo paralelismo. A ordenação individual de baldes, auxiliada pelo Insertion Sort, confere precisão e eficiência. Este algoritmo equilibra uso de memória adicional contra ganhos significativos de desempenho, justificando sua escolha em contextos adequados.
+
+
+\section{Resultados dos Testes}
+As avaliações dos desempenhos dos algoritmos foram realizadas usando vetores configurados em ordem não crescente e em ordem aleatória testados em uma máquina com processador 11th Gen Intel® Core™ i7-1165G7 com velocidade base de 2.80GHz e um total de 15GiB de RAM. Sistema Operacional: Ubuntu 20.04.6. Os resultados são apresentados abaixo graficamente ilustrados com números de comparações aproximados.
+
+\subsection{Comparações por tamanho}
+
+\textbf{Algoritmos recursivos}: Segue representado na figura 1 o gráfico que compara o Merge Sort, Quick Sort e Heap Sort quanto ao número de comparações pelo tamanho do vetor ordenado em ordem não crescente e na figura 2 o gráfico que compara os mesmos algoritmos ordenados, desta vez, aleatoriamente.
+
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            title={Comparações Vetores Piores Casos},
+            xlabel={Tamanho do Vetor (em milhões)},
+            ylabel={Comparações (em centenas de milhões)},
+            xtick={1, 5, 10, 15},
+            xticklabels={1, 5, 10, 15},
+            ytick={0, 100, 250, 400, 550, 700, 850, 1000},
+            yticklabels={0, 100, 200, 300, 400, 500, 600, 700},
+            xmode=normal,
+            ymode=normal,
+            legend pos=north west,
+            grid=major,
+            width=10cm,
+            height=5cm,
+        ]
+        
+        \definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}
+        \definecolor{darkpurple}{rgb}{0.5, 0.0, 0.5}
+        \definecolor{darkred}{rgb}{0.5, 0.0, 0.0}
+        
+        % Heap Sort
+        \addplot[darkgreen,mark=*,dashed] coordinates {
+            (1, 54.334845)
+            (5, 306.866847)
+            (10, 643.832038)
+            (15, 991.256802)
+        };
+        \addlegendentry{Heap Sort}
+        
+        % Quick Sort - Destacado
+        \addplot[thick, darkred,mark=*] coordinates {
+            (1, 18.401192)
+            (5, 103.617112)
+            (10, 217.244742)
+            (15, 334.835221)
+        };
+        \addlegendentry{Quick Sort}
+
+        % Merge Sort
+        \addplot[pink,mark=*,dashed] coordinates {
+            (1, 19.951424)
+            (5, 111.611392)
+            (10, 233.222784)
+            (15, 358.222784)
+        };
+        \addlegendentry{Merge Sort}
+        
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Comparação do número de comparações entre Merge Sort, Quick Sort e Heap Sort}
+    \label{fig:sortComparisonGraph}
+\end{figure}
+\vspace{-0.5cm}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            title={Comparações com Vetores Aleatórios},
+            xlabel={Tamanho do Vetor (em milhões)},
+            ylabel={Comparações (em centenas de milhões)},
+            xtick={1, 5, 10, 15},
+            xticklabels={1, 5, 10, 15},
+            ytick={0, 200, 400, 600, 800, 1000},
+            yticklabels={0, 2, 4, 6, 8, 10},
+            xmode=normal,
+            ymode=normal,
+            legend pos=north west,
+            grid=major,
+            width=10cm,
+            height=5cm,
+        ]
+        
+        \definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}
+        \definecolor{darkpurple}{rgb}{0.5, 0.0, 0.5}
+        \definecolor{darkred}{rgb}{0.5, 0.0, 0.0}
+        
+        % Heap Sort
+        \addplot[darkgreen,mark=*,dashed] coordinates {
+            (1, 55.842117)
+            (5, 314.238539)
+            (10, 658.478606)
+            (15, 1013.902287)
+        };
+        \addlegendentry{Heap Sort}
+        
+        % Quick Sort
+        \addplot[darkred,mark=*] coordinates {
+            (1, 26.045272)
+            (5, 144.155332)
+            (10, 292.146614)
+            (15, 455.776482)
+        };
+        \addlegendentry{Quick Sort}
+
+        % Merge Sort
+        \addplot[pink,mark=*,dashed] coordinates {
+            (1, 19.951424)
+            (5, 111.611392)
+            (10, 233.222784)
+            (15, 358.222784)
+        };
+        \addlegendentry{Merge Sort}
+        
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Comparação do número de comparações entre Merge Sort, Quick Sort e Heap Sort em vetores aleatórios}
+    \label{fig:randomVectorComparisonGraph}
+\end{figure}
+
+As Figuras 1 e 2 demonstram a quantidade de comparações feitas pelos algoritmos Merge Sort, Quick Sort e Heap Sort, relacionando-as com o tamanho do vetor. O Quick Sort, utilizando um pivô central, realiza menos comparações e se destaca pela eficiência, condizente com sua notação Big O de \( O(n \log n) \) no caso médio. Essa eficiência é confirmada em vetores aleatórios, que simulam o comportamento médio esperado. O Merge Sort, também projetado para operar com complexidade \( O(n \log n) \), evidencia um crescimento proporcional de comparações conforme o tamanho do vetor aumenta. Já o Heap Sort, apesar de sua complexidade assintótica teórica equivalente de \( O(n \log n) \), demanda um número maior de comparações devido à manutenção da estrutura de heap, o que é particularmente notório em entradas aleatórias. Este padrão sublinha a relevância de selecionar o algoritmo de ordenação mais apropriado com base nas características específicas dos dados a serem ordenados.
+
+
+\vspace{0.3cm}
+
+
+\textbf{Algoritmos iterativos:} O Counting Sort organiza elementos sem permutações diretas, operando com contagem e posicionamento que lhe permitem alcançar complexidade \( O(n) \). O Bucket Sort distribui elementos em 'baldes' e, em seguida, aplica um algoritmo de ordenação, como o Insertion Sort, para ordenar os conteúdos destes. O Bucket Sort foi avaliado em termos de número de comparações em vetores aleatórios e os resultados foram representados na tabela abaixo.
+
+\begin{table}[ht]
+\centering
+\label{tab:bucket_sort_comparisons}
+\begin{tabular}{@{}cc@{}}
+\toprule
+Tamanho do Vetor & Comparações Bucket Sort \\ \midrule
+10,000           & 3,703                   \\
+100,000          & 36,798                  \\
+1,000,000        & 368,080                 \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{-0.5cm}
+\subsection{Tempo de Execução por tamanho}
+
+\vspace{0.1cm}
+\textbf{Algoritmos recursivos}: As representações das figuras 3 e 4 são os tempos de execuções dos algoritmos implementados recursivamente que ordenam vetores organizados em ordem não crescente e em ordem aleatória, respectivamente.  
+
+\vspace{-0.2cm}
+\begin{figure}[H]
+\hspace{-1cm}
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            title={Tempo de Execução Piores Casos},
+            xlabel={Tamanho do Vetor (em milhões)},
+            ylabel={Tempo de Execução (em segundos)},
+            xtick={1, 5, 10, 15},
+            xticklabels={1, 5, 10, 15},
+            ytick={0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5},
+            yticklabels={0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5},
+            xmode=normal,
+            ymode=normal,
+            legend pos=north west,
+            grid=major,
+            width=10cm,
+            height=5cm,
+        ]
+        
+        \definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}
+        \definecolor{darkpurple}{rgb}{0.5, 0.0, 0.5}
+        \definecolor{darkred}{rgb}{0.5, 0.0, 0.0}
+        
+        % Heap Sort
+        \addplot[darkgreen,mark=*,dashed] coordinates {
+            (1, 0.288556)
+            (5, 1.690120)
+            (10, 3.525657)
+            (15, 5.438522)
+        };
+        \addlegendentry{Heap Sort}
+        
+        % Quick Sort - Destacado
+        \addplot[thick, darkred,mark=*] coordinates {
+            (1, 0.085589)
+            (5, 0.468808)
+            (10, 1.003182)
+            (15, 1.500959)
+        };
+        \addlegendentry{Quick Sort}
+
+        % Merge Sort
+        \addplot[pink,mark=*,dashed] coordinates {
+            (1, 0.187265)
+            (5, 0.839681)
+            (10, 1.717589)
+            (15, 2.620373)
+        };
+        \addlegendentry{Merge Sort}
+        
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Comparação do tempo de execução entre Merge Sort, Quick Sort e Heap Sort}
+    \label{fig:executionTimeComparisonGraph}
+\end{figure}
+
+A Figura 3 mostra o desempenho dos algoritmos Merge Sort, Quick Sort e Heap Sort em vetores decrescentes. O Quick Sort se sobressai em eficiência, alinhando-se à sua complexidade de \( O(n \log n) \), enquanto o Merge Sort mantém um aumento de tempo linear-logarítmico conforme o tamanho do vetor aumenta. O Heap Sort, embora também de complexidade \( O(n \log n) \), tem o maior tempo de execução, refletindo a sobrecarga inerente à gestão da estrutura de heap.
+
+
+\begin{figure}[H]
+\vspace{-0.3cm}
+
+    \centering
+    \begin{tikzpicture}
+        \begin{axis}[
+            title={Tempo de Execução para Vetores Aleatórios},
+            xlabel={Tamanho do Vetor (em milhões)},
+            ylabel={Tempo de Execução (em segundos)},
+            xtick={1, 5, 10, 15},
+            xticklabels={1, 5, 10, 15},
+            ytick={0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+            yticklabels={0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+            xmode=normal,
+            ymode=normal,
+            legend pos=north west,
+            grid=major,
+            width=10cm,
+            height=5cm,
+        ]
+        
+        \definecolor{darkgreen}{rgb}{0.0, 0.5, 0.0}
+        \definecolor{darkpurple}{rgb}{0.5, 0.0, 0.5}
+        \definecolor{darkred}{rgb}{0.5, 0.0, 0.0}
+        
+        % Heap Sort
+        \addplot[darkgreen,mark=*,dashed] coordinates {
+            (1, 0.380996)
+            (5, 2.665640)
+            (10, 5.666114)
+            (15, 9.406831)
+        };
+        \addlegendentry{Heap Sort}
+        
+        % Quick Sort - Destacado
+        \addplot[thick, darkred,mark=*] coordinates {
+            (1, 0.205168)
+            (5, 1.148576)
+            (10, 2.323189)
+            (15, 3.524406)
+        };
+        \addlegendentry{Quick Sort}
+
+        % Merge Sort
+        \addplot[pink,mark=*,dashed] coordinates {
+            (1, 0.305452)
+            (5, 1.542628)
+            (10, 3.201617)
+            (15, 4.874423)
+        };
+        \addlegendentry{Merge Sort}
+        
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Comparação do tempo de execução entre Merge Sort, Quick Sort e Heap Sort em vetores aleatórios}
+    \label{fig:randomVectorExecutionTimeGraph}
+\end{figure}
+
+A Figura 4 apresenta os tempos de execução dos algoritmos Merge Sort, Quick Sort e Heap Sort em vetores aleatórios. O Quick Sort destaca-se pela rapidez, alinhado à sua eficiência teórica de \( O(n \log n) \). O Merge Sort segue com um tempo de execução moderado, demonstrando consistência. O Heap Sort, com os tempos mais longos, destaca a carga adicional imposta pela manipulação da estrutura de heap, que afeta mais intensamente conforme os vetores crescem em tamanho.
+
+\vspace{0.4cm}
+\textbf{Algoritmos Iterativos}: O Counting Sort exibe eficiência temporal com sua operação linear, refletindo uma complexidade de \( O(n) \). Já o Bucket Sort, organizando elementos em 'baldes' para posterior ordenação, demonstra desempenho temporal variável, como mostrado na tabela a seguir.
+
+
+\vspace{0.5cm}
+\begin{table}[ht]
+\centering
+\caption{Tempos de execução do Counting Sort e Bucket Sort para vetores de diferentes tamanhos ordenados aleatoriamente.}
+\label{tab:sorting_algorithms_execution_times}
+\begin{tabular}{@{}ccc@{}}
+\toprule
+Tamanho do Vetor & Counting Sort - Tempo (s) & Bucket Sort - Tempo (s) \\ \midrule
+10,000           & 0.000333                      & 0.037220                     \\
+100,000          & 0.002383                      & 0.337776                     \\
+10,000,000       & 0.151620                      & N/A                            \\ % Substituir '-' por 'N/A' ou 'Não disponível' se preferir
+ 100,000,000      & 1.537345                      & N/A    
+      \\% Descomentar se necessário
+\bottomrule
+\end{tabular}
+\end{table}
+{\small \textit{Nota: N/A mostrados na tabela representam a falta de memória na máquina de teste para o algoritmo em questão.}}
+
+\vspace{0.5cm}
+
+\section{Conclusão}
+A análise detalhada dos algoritmos de ordenação destaca que não há um algoritmo definitivamente superior; a escolha mais eficiente varia conforme as características dos dados. O Quick Sort se alinha à sua complexidade prevista de \( O(n \log n) \), exibindo alta eficiência em diversos cenários. O Merge Sort se mostra consistente, e o Heap Sort, apesar de eficaz, tem seu desempenho afetado pela gestão do heap. O desempenho notável do Counting Sort em conjuntos específicos e o Bucket Sort, que se beneficia de sua estratégia de pré-ordenação, reforçam a importância da seleção adequada do algoritmo.
+
+
+
+\end{document}
