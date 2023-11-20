@@ -5,47 +5,96 @@
 #include "ordenacao.h"
 
 int main() {
-    char nome[MAX_CHAR];
+
     char nomeAlg[MAX_CHAR];
-    int numComp;
+    unsigned long numComp;
+    char nome[MAX_CHAR];
+    unsigned int *vetorUnsigned;
+    int tamVetor = 100000;
+    int *vetor = (int *)malloc(tamVetor * sizeof(int));
 
-    int tamVetor = 3;
-    int* vetor = (int*)malloc(tamVetor * sizeof(int));
     if (vetor == NULL) {
-        printf("Falha fatal. Impossível alocar memoria.");
+        printf("Falha fatal. Impossível alocar memória.");
         return 1;
-    }
+    }   
 
-    vetor[0] = 1;
-    vetor[1] = 10;
-    vetor[2] = 12;
 
     getNome(nome);
     printf("Trabalho de %s\n", nome);
     printf("GRR %u\n", getGRR());
 
-    numComp = mergeSort(vetor, 3);
-    numComp = quickSort(vetor, 3);
-    numComp = heapSort(vetor, 3);
+    
+    clock_t start, end;
+    double total;
 
+    // Bucket Sort
     getNomeAlgoritmoExtra(nomeAlg);
     printf("Executando %s\n", nomeAlg);
-    numComp = algoritmoExtra(vetor, 3);
+    vetor = (int *)malloc(tamVetor * sizeof(int));
+    preencherVetorAleatorio(vetor, tamVetor);
 
-    printf("NumComp: %d\n", numComp);
+    start = clock();
+    numComp = algoritmoExtra(vetor, tamVetor);
+    end = clock();
+    total = ((double)end - start) / CLOCKS_PER_SEC;
 
-    unsigned int vetorUnsigned[3] = {5, 4, 3};
-    countingSort(vetorUnsigned, 3, 12);
-
-    for (int i = 0; i < 3; ++i) printf("%d ", vetor[i]);
-
-    printf("\n");
-
-    for (int i = 0; i < 3; ++i) printf("%d ", vetorUnsigned[i]);
-
-    printf("\n");
-
+    printf("Bucket Sort - Tempo: %f segundos, Comparacoes: %ld\n", total, numComp);
     free(vetor);
+    
+    
+    // Merge Sort
+    vetor = (int *)malloc(tamVetor * sizeof(int));
+    preencherVetorAleatorio(vetor, tamVetor);
+
+    start = clock();
+    numComp = mergeSort(vetor, tamVetor);
+    end = clock();
+    total = ((double)end - start) / CLOCKS_PER_SEC;
+
+    printf("Merge Sort - Tempo: %f segundos, Comparacoes: %ld\n", total, numComp);
+    free(vetor);
+
+
+    // Quick Sort
+    vetor = (int *)malloc(tamVetor * sizeof(int));
+    preencherVetorAleatorio(vetor, tamVetor);
+
+    start = clock();
+    numComp = quickSort(vetor, tamVetor);
+    end = clock();
+    total = ((double)end - start) / CLOCKS_PER_SEC;
+
+    printf("Quick Sort - Tempo: %f segundos, Comparacoes: %ld\n", total, numComp);
+    free(vetor);
+
+
+    
+    // Heap Sort
+    vetor = (int *)malloc(tamVetor * sizeof(int));
+    preencherVetorAleatorio(vetor, tamVetor);
+
+    start = clock();
+    numComp = heapSort(vetor, tamVetor);
+    end = clock();
+    total = ((double)end - start) / CLOCKS_PER_SEC;
+
+    printf("Heap Sort - Tempo: %f segundos, Comparacoes: %ld\n", total, numComp);
+    free(vetor);
+
+ 
+    // Counting Sort para vetor de unsigned ints
+    vetorUnsigned = (unsigned int *)malloc(tamVetor * sizeof(unsigned int));
+
+    preencherVetorCountingSort(vetorUnsigned, tamVetor);
+
+    start = clock();
+    countingSort(vetorUnsigned, tamVetor, tamVetor);
+    end = clock();
+    total = ((double)end - start) / CLOCKS_PER_SEC;
+
+    printf("Counting Sort - Tempo: %f segundos\n", total);
+
+    free(vetorUnsigned);
 
     return 0;
 }
