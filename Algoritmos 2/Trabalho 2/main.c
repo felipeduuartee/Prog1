@@ -21,7 +21,6 @@ int main() {
 
     getNome(nome);
     printf("Trabalho de %s\n", nome);
-    printf("GRR %u\n", getGRR());
 
     
     clock_t start, end;
