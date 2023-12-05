@@ -1,25 +1,10 @@
-/* Implementa o TAD Lista de Eventos Futuros (LEF) 
- * Feito em C para a disciplina CI1001 - Programacao 1 
- * Autor: Luis C. E. Bona, adaptado por Carlos Maziero
- *
- * Versao 1.0.0 10/11/2021
- * Versao 1.0.1 16/08/2022
- * Versao 2.0.0 14/12/2022
- * Versao 2.1.0 05/10/2023
- */
+
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "lef.h"
 
-/* A  LEF é uma lista que armazena eventos ordenados pelo membro tempo 
- * do tipo evento_t. Cada evento pode ter um tipo e armazenar em dados 
- * diferentes estruturas de dados que permitem descrever cada evento. */
 
-/* 
- * Cria um evento contendo os parâmetros informados.
- * Retorna um ponteiro para o evento ou NULL se falhar.
- */
 struct evento_t *cria_evento (int tempo, int tipo, int dado1, int dado2) {
 	struct evento_t *ev;
 	ev = malloc (sizeof (struct evento_t));
@@ -34,9 +19,6 @@ struct evento_t *cria_evento (int tempo, int tipo, int dado1, int dado2) {
 	return ev;
 }
 
-/* 
- * Destroi um evento e retorna NULL.
- */ 
 struct evento_t *destroi_evento (struct evento_t *e) {
 	if (!e)
 		return NULL;
@@ -44,10 +26,6 @@ struct evento_t *destroi_evento (struct evento_t *e) {
 	return NULL;
 }
 
-/* 
- * Cria uma LEF vazia 
- * Retorna um ponteiro para a LEF ou NULL se falhar.
- */
 struct lef_t *cria_lef () {
 	struct lef_t *lef;
 	lef = malloc (sizeof (struct lef_t));
@@ -57,10 +35,6 @@ struct lef_t *cria_lef () {
 	return lef;
 }
 
-/* 
- * Destroi a LEF, liberando a memória ocupada por ela, inclusive os eventos.
- * Retorna NULL.
- */ 
 struct lef_t *destroi_lef (struct lef_t *l) {
  	if (!l)
 	       return NULL;
@@ -76,11 +50,6 @@ struct lef_t *destroi_lef (struct lef_t *l) {
 	return NULL;	
 }
 
-/*
- * Insere o evento apontado na LEF na ordem de tempos crescentes.
- * Eventos com o mesmo tempo devem respeitar a politica FIFO.
- * Retorna 1 em caso de sucesso ou 0 caso contrario.
-*/
 int insere_lef (struct lef_t *l, struct evento_t *e) {
 	if (!l || !e)
 		return 0;
