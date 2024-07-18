@@ -6,10 +6,9 @@
 
 int main() {
 
-    // char nomeAlg[MAX_CHAR];
     uint64_t numComp;
     char nome[MAX_CHAR];
-    int tamVetor = 100000000;
+    int tamVetor = 100000;
     int *vetor = (int *)malloc(tamVetor * sizeof(int));
 
     if (vetor == NULL) {
@@ -33,7 +32,6 @@ int main() {
     printf("Merge Sort - Tempo: %f segundos, Comparacoes: %ld\n", total, numComp);
 
     // Merge Sort Sem Recursão
-    // vetor = (int *)malloc(tamVetor * sizeof(int)); // Alocação já feita anteriormente
     preencherVetorAleatorio(vetor, tamVetor);
     start = clock();
     numComp = mergeSortSR(vetor, tamVetor);
@@ -51,7 +49,6 @@ int main() {
     
 
     // Quick Sort Sem Recursão
-    // vetor = (int *)malloc(tamVetor * sizeof(int)); // Alocação já feita anteriormente
     preencherVetorAleatorio(vetor, tamVetor);
     start = clock();
     numComp = quickSortSR(vetor, tamVetor);
@@ -77,8 +74,6 @@ int main() {
     total = ((double)end - start) / CLOCKS_PER_SEC;
     printf("Heap Sort SR - Tempo: %f segundos, Comparacoes: %ld\n", total, numComp);
 
-
-    // Liberar o vetor no final, após todas as operações
     free(vetor);
 
     return 0;
