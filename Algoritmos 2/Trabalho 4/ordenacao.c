@@ -24,16 +24,27 @@ void preencherVetorAleatorio(int* vetor, int tamVetor) {
     }
 }
 
+void empilhar(int *pilha, int *topo, int valor) {
+    pilha[++(*topo)] = valor;
+}
+
+void desempilhar(int *pilha, int *topo, int *valor) {
+    *valor = pilha[(*topo)--];
+}
+
+
 void merge(int vetor[], int inicio, int meio, int fim, uint64_t *numComparacoes) {
     int n1 = meio - inicio + 1;
     int n2 = fim - meio;
+    int i = 0, j = 0, k = inicio;
+
 
     int *esquerda = (int *)malloc(n1 * sizeof(int));
     int *direita = (int *)malloc(n2 * sizeof(int));
 
     if (!esquerda || !direita) {
-        fprintf(stderr, "Erro de alocação de memória\n");
-        exit(EXIT_FAILURE);
+        printf("Erro de alocação de memória\n");
+        exit(1);
     }
 
     for (int i = 0; i < n1; i++) {
@@ -43,8 +54,7 @@ void merge(int vetor[], int inicio, int meio, int fim, uint64_t *numComparacoes)
         direita[j] = vetor[meio + 1 + j];
     }
 
-    int i = 0, j = 0, k = inicio;
-
+    // enquanto há elementos nos subvetores
     while (i < n1 && j < n2) {
         (*numComparacoes)++;
         if (esquerda[i] <= direita[j]) {
@@ -73,6 +83,7 @@ void merge(int vetor[], int inicio, int meio, int fim, uint64_t *numComparacoes)
     free(direita);
 }
 
+
 void mergeSortRecursivo(int vetor[], int inicio, int fim, uint64_t *numComparacoes) {
     if (inicio < fim) {
         int meio = inicio + (fim - inicio) / 2;
@@ -95,22 +106,49 @@ uint64_t mergeSort(int vetor[], size_t tam) {
 
 
 void mergeSortSemRecursao(int vetor[], size_t tam, uint64_t *numComparacoes) {
-    for (int tamAtual = 1; tamAtual < tam; tamAtual *= 2) {
-        for (int inicio = 0; inicio < tam; inicio += 2 * tamAtual) {
-            int meio = inicio + tamAtual - 1;
-            int fim;
-            if (inicio + 2 * tamAtual - 1 < tam) {
-                fim = inicio + 2 * tamAtual - 1;
-            } else {
-                fim = tam - 1;
+    if (tam <= 1) return;
+
+    // Tamanho máximo da pilha é tam * 2
+    int *pilha = (int *)malloc(tam * 2 * sizeof(int));
+    int topo = -1;
+
+    // Empilha o intervalo inicial
+    pilha[++topo] = 0;
+    pilha[++topo] = tam - 1;
+
+    while (topo >= 0) {
+        int fim = pilha[topo--];
+        int inicio = pilha[topo--];
+
+        if (inicio < fim) {
+            int meio = inicio + (fim - inicio) / 2;
+
+            (*numComparacoes)++;
+
+            // Empilha os subintervalos e a tarefa de mesclagem
+            if (meio + 1 < fim) {
+                pilha[++topo] = meio + 1;
+                pilha[++topo] = fim;
             }
-            
-            if (meio < fim) {
-                merge(vetor, inicio, meio, fim, numComparacoes);
+            if (inicio < meio) {
+                pilha[++topo] = inicio;
+                pilha[++topo] = meio;
             }
+
+            // Mescla o intervalo atual
+            merge(vetor, inicio, meio, fim, numComparacoes);
         }
     }
+
+    free(pilha);
 }
+
+
+
+
+
+
+
 
 uint64_t mergeSortSR(int vetor[], size_t tam) {
     uint64_t numComparacoes = 0;
